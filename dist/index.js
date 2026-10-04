@@ -62152,10 +62152,12 @@ async function terminateEc2Instance() {
 
   const params = {
     InstanceIds: [config.input.ec2InstanceId],
-    delay: 15, 
   };
 
   try {
+    await ec2.terminateInstances(params).promise();
+    core.info(`AWS EC2 instance ${config.input.ec2InstanceId} termination requested`);
+
     await ec2.terminateInstances(params).promise();
     core.info(`AWS EC2 instance ${config.input.ec2InstanceId} is terminated`);
     return;
